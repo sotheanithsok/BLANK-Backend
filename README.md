@@ -1,1 +1,1 @@
-# CECS478-EncryptionChatApp
+# CECS478-EncryptedChatApp
