@@ -5,14 +5,14 @@ const app = express();
 //This is block of code is handling the writing request
 //Default writing request
 app.post('/api/write',(req, res)=>{
-    res.send('You are attempting to write data. Cool!!!');
-    res.end();
+    const data = {
+    
+    }
 });
-//Write data
-app.post('/api/write/:receiver/:sender/:encryptedText/:securityData/:timestamp', (req, res)=>{
-    res.send(`You are attempting to write to the server with the following data: ${req.params.receiver} ${req.params.sender} ${req.params.encryptedText} ${req.params.securityData} ${req.params.timestamp}`)
-    res.end();
-});
+
+
+
+
 
 
 //This is block of code is handling the reading request
