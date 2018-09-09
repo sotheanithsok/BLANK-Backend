@@ -2,10 +2,13 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "Back-end codes for CECS-478-EncryptedChatApp",
-  "main": "serverApp.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sotheanith Sok, Hayat Ahmed",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
