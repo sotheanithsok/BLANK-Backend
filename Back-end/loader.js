@@ -20,7 +20,6 @@ function createDatabase(){
 
 //Get the database object
 function getDatabase(){
-
     if(database===null){
         //Read data
         let rawdata=fs.readFileSync('database.json');
@@ -38,10 +37,11 @@ function saveDatabase(){
         }else{
             console.log('Successfully saved database.');
         }
-    })
+    });
+    
 }
 
 //Export functions 
-module.exports.getDatabase=getDatabase();
-module.exports.saveDatabase=saveDatabase();
+module.exports.getDatabase=getDatabase;
+module.exports.saveDatabase=saveDatabase;
 

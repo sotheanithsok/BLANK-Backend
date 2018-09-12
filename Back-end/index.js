@@ -1,13 +1,21 @@
-const express= require('express');
+const express = require('express');
 const app = express();
+const writer = require('./writer');
+const reader = require('./reader');
 
+app.use(express.json());
 
 //This is block of code is handling the writing request
 //Default writing request
-app.post('/api/write',(req, res)=>{
-    const data = {
-    
+app.post('/api/write', (req, res) => {
+    let result = writer.writeToDatabase(req.body);
+    if (result) {
+        res.status(200);
+    } else {
+        res.status(400);
     }
+    res.end();
+
 });
 
 
@@ -17,23 +25,28 @@ app.post('/api/write',(req, res)=>{
 
 //This is block of code is handling the reading request
 //Default reading request
-app.get('/api/read',(req, res)=>{
-    res.send('You are attempting to read data. Cool!!!');
+app.get('/api/read', (req, res) => {
+    if (result) {
+        res.status(200);
+    } else {
+        res.status(400);
+    }
     res.end();
 });
 
 //Read by receiver
-app.get('/api/read/:receiver',(req, res)=>{
-    res.send(`You are attempting to read data from receiver ${req.params.receiver}. Cool!!!`);
+app.get('/api/read/:receiver', (req, res) => {
+    let result = reader.searchByReceiver(req.params.receiver);
+    res.send(result);
     res.end();
 });
 
-app.get('/api/read/:receiver/:sender',(req, res)=>{
-    res.send(`You are attempting to read data from receiver ${req.params.receiver} to sender ${req.params.sender}. Cool!!!`);
+app.get('/api/read/:receiver/:sender', (req, res) => {
+    let result = reader.searchByReceiverAndSender(req.params.receiver, req.params.sender);
+    res.send(result)
     res.end();
 });
- 
+
 //Check port variable
 const port = process.env.PORT || 3000;
-app.listen(port, ()=>console.log(`Listen to port ${port}`));
-
+app.listen(port, () => console.log(`Listen to port ${port}`));
