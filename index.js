@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const writer = require('./Write/writer');
-const reader = require('./Read/reader');
+const writer = require('./write/writer');
+const reader = require('./read/reader');
 
 app.use(express.json());
 
