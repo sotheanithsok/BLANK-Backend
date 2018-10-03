@@ -47,6 +47,9 @@ app.get('/api/read/:receiver/:sender', (req, res) => {
     res.end();
 });
 
+app.all('/setup',(req,res)=>{
+    res.sendFile('database/setup.html',{root: __dirname });
+});
 
 app.all('*',(req,res)=>{
     res.sendFile('database/default.html',{root: __dirname });
