@@ -55,10 +55,10 @@
 <p>ssl_session_timeout 1h;</p>
 <p>add_header Strict-Transport-Security &ldquo;max-age= 63072000&rdquo; always;<br />}</p>
 </li>
-<li>"<strong>sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com</strong>" //Create soft linknk between sites-available and sites-enabled.</li>
+<li>"<strong>sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com</strong>" //Create soft link between sites-available and sites-enabled.</li>
 <li>"<strong>sudo nginx -t</strong>" //Reload nginx setting.</li>
 <li>"<strong>sudo mkdir /etc/systemd/<wbr />system/<wbr />nginx.service.<wbr />d</strong>" //Create override nginx setting</li>
-<li>"<strong>sudo nano&nbsp;mkdir /etc/systemd/<wbr />system/<wbr />nginx.service.<wbr />d/override.<wbr />conf</strong>" //Create the conf file and put this in it:<br />[Service]<br />ExecStartPost=/bin/sleep 0.1</li>
+<li>"<strong>sudo nano /etc/systemd/<wbr />system/<wbr />nginx.service.<wbr />d/override.<wbr />conf</strong>" //Create the conf file and put this in it:<br />[Service]<br />ExecStartPost=/bin/sleep 0.1</li>
 <li>"<strong>sudo&nbsp;systemctl daemon-reload</strong>" //reload conf</li>
 <li>"<strong>sudo service nginx start</strong>" //start nginx</li>
 <li>"<strong>sudo apt update</strong>" //prepare for the installation of OpenSSL 1.1.1</li>
