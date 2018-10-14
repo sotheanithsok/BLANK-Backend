@@ -1,59 +1,46 @@
-const express = require('express');
+const express=require('express');
 const app = express();
-const writer = require('./write/writer');
-const reader = require('./read/reader');
+const handle=require('./src/handler');
+
+const handler=new handle();
 
 app.use(express.json());
 
-//This is block of code is handling the writing request
-//Default writing request
-app.post('/api/write', (req, res) => {
-    let result = writer.writeToDatabase(req.body);
-    if (result) {
-        res.status(200);
-    } else {
-        res.status(400);
-    }
-    res.end();
+//Post new message
+app.post('/messages',(req,res)=>{
+    handler.handleMessagePostRequest(req,res);
+    
+});
 
+//Get unread message request
+app.get('/messages/:owner',(req,res)=>{
+    handler.handleMessageGetRequest(req,res);
+});
+
+//Get all message 
+app.get('/messagesAll/:owner',(req,res)=>{
+    handler.handleMessagesGetAllRequest(req,res);
 });
 
 
+//Extra request handles
 
-
-
-
-//This is block of code is handling the reading request
-//Default reading request
-app.get('/api/read', (req, res) => {
-    if (result) {
-        res.status(200);
-    } else {
-        res.status(400);
-    }
-    res.end();
+//Setup page
+app.get('/setup', (req,res)=>{
+    res.sendFile('assets/setup.html',{root: __dirname });
+    
 });
 
-//Read by receiver
-app.get('/api/read/:receiver', (req, res) => {
-    let result = reader.searchByReceiver(req.params.receiver);
-    res.send(result);
-    res.end();
+//Home page
+app.get('/',(req,res)=>{
+    res.sendFile('assets/default.html',{root: __dirname});
 });
 
-app.get('/api/read/:receiver/:sender', (req, res) => {
-    let result = reader.searchByReceiverAndSender(req.params.receiver, req.params.sender);
-    res.send(result)
-    res.end();
-});
-
-app.all('/setup',(req,res)=>{
-    res.sendFile('database/setup.html',{root: __dirname });
-});
-
+//Redirect all unknow request to homepage.
 app.all('*',(req,res)=>{
-    res.sendFile('database/default.html',{root: __dirname });
+    res.redirect('/');
 });
+
 //Check port variable
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listen to port ${port}`));

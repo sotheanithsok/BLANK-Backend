@@ -1,14 +1,22 @@
 {
-  "name": "CG-EncryptedChatApp-Backend",
-  "version": "0.1.0",
-  "description": "Back-end codes for CECS-478-EncryptedChatApp",
+  "name": "cg-encryptedchatapp-backend",
+  "version": "0.0.1",
+  "description": "This the backend application for CG-EncryptedChatApp",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sotheanith/CG-EncryptedChatApp-Backend.git"
+  },
   "author": "Sotheanith Sok, Hayat Ahmed",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sotheanith/CG-EncryptedChatApp-Backend/issues"
+  },
+  "homepage": "https://github.com/sotheanith/CG-EncryptedChatApp-Backend#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.4"
   }
 }
