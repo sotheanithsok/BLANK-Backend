@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path ='./assets/database.json'
-console.log(path);
 class Database{
     constructor(){
         if(!fs.existsSync(path)){
