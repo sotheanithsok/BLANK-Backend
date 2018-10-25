@@ -3,9 +3,9 @@ const app = express();
 const handle=require('./src/handler');
 
 const handler=new handle();
-
 app.use(express.json());
 
+/////////Message Server
 //Post new message
 app.post('/messages',(req,res)=>{
     handler.handleMessagePostRequest(req,res);
@@ -21,6 +21,23 @@ app.get('/messages/:owner',(req,res)=>{
 app.get('/messagesAll/:owner',(req,res)=>{
     handler.handleMessagesGetAllRequest(req,res);
 });
+
+//Authentication
+
+//Signup
+app.post('/signup',(req,res)=>{
+    res.send(req.body);
+    res.end();
+});
+
+
+
+
+
+
+
+
+
 
 
 //Extra request handles
