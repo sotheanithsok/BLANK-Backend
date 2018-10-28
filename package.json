@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/sotheanith/CG-EncryptedChatApp-Backend#readme",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "express": "^4.16.4",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "secure-remote-password": "^0.3.1"
   }
 }
