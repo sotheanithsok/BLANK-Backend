@@ -1,11 +1,11 @@
 //A representation of user object
 class User{
-    constructor(id, username, email, password, salt){
+    constructor(id, username, email, salt, verifier){
         this._id=id;
         this._username=username;
         this._email=email;
-        this._password=password;
         this._salt =salt;
+        this._verifier = verifier;
     }
     set id(val){
         this._id=val;
@@ -16,11 +16,12 @@ class User{
     set email(val){
         this._email=val;
     }
-    set password(val){
-        this._password=val;
-    }
     set salt(val){
         this._salt=val;
+    }
+
+    set verifier(val){
+        this._verifier=val;
     }
 
     get id(){
@@ -32,11 +33,11 @@ class User{
     get email(){
         return this._email;
     }
-    get password(){
-        return this._password
-    }
     get salt(){
         return this._salt;
+    }
+    get verifier(){
+        return this._verifier;
     }
 }   
 module.exports = User;

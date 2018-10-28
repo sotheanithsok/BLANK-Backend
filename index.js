@@ -26,8 +26,7 @@ app.get('/messagesAll/:owner',(req,res)=>{
 
 //Signup
 app.post('/signup',(req,res)=>{
-    res.send(req.body);
-    res.end();
+    handler.handleSignupRequest(req,res);
 });
 
 

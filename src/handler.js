@@ -7,6 +7,7 @@ class Handler{
         this._messagesDatabase=new Database("./assets/messagesDatabase.json", Message);
         this._usersDatabase=new Database("./assets/usersDatabase.json", User);
     }
+    
     handleMessagePostRequest(req, res){
         let data = req.body;
         let isPassed= data.hasOwnProperty('owner') 
@@ -76,9 +77,29 @@ class Handler{
             res.status(404).end();
         }
     }
-    
-    handleSignupRequest(res,req){
 
+    handleSignupRequest(req,res){
+        let data = req.body;
+        let isPassed = data.hasOwnProperty('username')
+                    && data.hasOwnProperty('email')
+                    && data.hasOwnProperty('salt')
+                    && data.hasOwnProperty('verifier')
+                    && data.username.trim()
+                    && data.email.trim()
+                    && data.email.trim()
+                    && data.verifier.trim();
+        let temp=[];
+        if(isPassed){
+            temp = this._usersDatabase.getItemsByCriteria(e=>e.email===data.email || e.username === data.username);
+        }
+
+        if(temp.length===0 && isPassed){
+            this._usersDatabase.add(new User(-1,data.username.trim(),data.email.trim(),data.salt.trim(),data.verifier.trim()));
+            res.status(201).end();
+        }else{
+            res.status(400).end();
+        }
+        
     }
     
 }
