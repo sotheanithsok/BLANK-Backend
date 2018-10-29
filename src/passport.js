@@ -31,7 +31,6 @@ function jwtStrategy(passport){
         audience:Utilities.audience
     },function(payload,done){
         let temp = userDatabase.getItemsByCriteria(e=>e.id===parseInt(payload.sub));
-        console.log(payload.sub);
         if(temp.length!=0){
             return done(null, temp[0]);
         }else{

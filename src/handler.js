@@ -117,7 +117,6 @@ class Handler{
             subject:id.toString(),
             expiresIn:'7d'})
         res.send({
-            id:id,
             token:token
         });
         res.status(200).end();
