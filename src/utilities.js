@@ -4,6 +4,9 @@ const User = require('./user');
 const crypto = require('crypto');
 const fs = require('fs');
 
+//A utilities class that contains all constant variable. 
+
+
 const messagesDatabase=new Database("./assets/messagesDatabase.json", Message);
 const usersDatabase=new Database("./assets/usersDatabase.json", User);
 const issuer = 'Crush next doors';

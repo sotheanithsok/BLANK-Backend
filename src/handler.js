@@ -3,12 +3,14 @@ const Message=require('./message');
 const User = require('./user');
 const jwt= require('jsonwebtoken');
 
+//Handler that deals with request after complete the authentication.
 class Handler{
     constructor(){  
         this._messagesDatabase=Utilities.messageDB;
         this._usersDatabase=Utilities.userDB;
     }
-    
+
+    //Let a user post a message
     handleMessagePostRequest(req, res){
         let data = req.body;
         let isPassed= data.hasOwnProperty('owner') 
@@ -27,6 +29,7 @@ class Handler{
         }        
     }
 
+    //Get unreaded message
     handleMessageGetRequest(req,res){        
        let a = this._messagesDatabase.getItemsByCriteria(e => e.owner==req.params.owner && e.isRead===false);
 
@@ -53,6 +56,7 @@ class Handler{
        }
     }
     
+    //Get all message including read and unreaded message
     handleMessagesGetAllRequest(req,res){
         let a = this._messagesDatabase.getItemsByCriteria(e => e.owner==req.params.owner);
 
@@ -79,6 +83,7 @@ class Handler{
         }
     }
 
+    //Handle signup request by saving user data into the database
     handleSignupRequest(req,res){
         let data = req.body;
         let isPassed = data.hasOwnProperty('username')
@@ -103,6 +108,7 @@ class Handler{
         
     }
 
+    //Handle login request by return a jwt token
     handleLoginRequest(req,res){
         let id= this._usersDatabase.getItemsByCriteria(e=>e.username=req.body.username)[0].id;
         let token =jwt.sign({},Utilities.key,{

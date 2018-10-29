@@ -1,4 +1,4 @@
-//A representation of user object
+//A generic representation of User
 class User{
     constructor(id, username, email, salt, verifier){
         this._id=id;

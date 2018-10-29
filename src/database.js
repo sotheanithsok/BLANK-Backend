@@ -1,4 +1,6 @@
 const fs = require('fs');
+
+//A generic representation of database
 class Database{
     constructor(path, type){
         this._path=path;
@@ -39,16 +41,22 @@ class Database{
         this.writeToFile();
     }
 
+    //Return all item that meet that criteria
     getItemsByCriteria(criteria){
        return this._database.filter(criteria);
     }
+
+    //Return item of that id
     getById(val){
         return this._database.find(e=>e.id===val);
     }
     
+    //Get size of the database
     getSize(){
         return this._database.length;
     }
+
+    //Return a specific item from a database
     getItem(item){
         let i =this._database.indexOf(item);
         return this._database[i];

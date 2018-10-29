@@ -1,3 +1,4 @@
+//A generic representation of Message object
 class Message{
     constructor(id, owner, content, key, tag){
         this._id=id;
