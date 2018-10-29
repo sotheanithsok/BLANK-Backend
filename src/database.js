@@ -42,6 +42,9 @@ class Database{
     getItemsByCriteria(criteria){
        return this._database.filter(criteria);
     }
+    getById(val){
+        return this._database.find(e=>e.id===val);
+    }
     
     getSize(){
         return this._database.length;

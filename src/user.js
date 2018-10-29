@@ -40,4 +40,5 @@ class User{
         return this._verifier;
     }
 }   
+
 module.exports = User;

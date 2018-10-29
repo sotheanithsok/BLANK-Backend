@@ -1,11 +1,12 @@
-const Database= require('./database');
+const Utilities= require('./utilities');
 const Message=require('./message');
 const User = require('./user');
+const jwt= require('jsonwebtoken');
 
 class Handler{
     constructor(){  
-        this._messagesDatabase=new Database("./assets/messagesDatabase.json", Message);
-        this._usersDatabase=new Database("./assets/usersDatabase.json", User);
+        this._messagesDatabase=Utilities.messageDB;
+        this._usersDatabase=Utilities.userDB;
     }
     
     handleMessagePostRequest(req, res){
@@ -101,7 +102,20 @@ class Handler{
         }
         
     }
-    
+
+    handleLoginRequest(req,res){
+        let id= this._usersDatabase.getItemsByCriteria(e=>e.username=req.body.username)[0].id;
+        let token =jwt.sign({},Utilities.key,{
+            audience:Utilities.audience,
+            issuer:Utilities.issuer,
+            subject:id.toString(),
+            expiresIn:'7d'})
+        res.send({
+            id:id,
+            token:token
+        });
+        res.status(200).end();
+    } 
 }
 
 module.exports=Handler;
