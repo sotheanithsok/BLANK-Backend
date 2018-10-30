@@ -12,18 +12,18 @@ init(passport);
 
 /////////Message Server
 //Post new message
-app.post('/messages',passport.authenticate('jwt'),(req,res)=>{
+app.post('/messages',passport.authenticate('jwt',{session:false}),(req,res)=>{
     handler.handleMessagePostRequest(req,res);
     
 });
 
 //Get unread message request
-app.get('/messages/:owner',passport.authenticate('jwt'),(req,res)=>{
+app.get('/messages',passport.authenticate('jwt',{session:false}),(req,res)=>{
     handler.handleMessageGetRequest(req,res);
 });
 
 //Get all message 
-app.get('/messagesAll/:owner',passport.authenticate('jwt'),(req,res)=>{
+app.get('/messagesAll',passport.authenticate('jwt', {session:false}),(req,res)=>{
     handler.handleMessagesGetAllRequest(req,res);
 });
 
@@ -34,7 +34,7 @@ app.post('/signup',(req,res)=>{
     handler.handleSignupRequest(req,res);
 });
 
-app.post('/login',passport.authenticate('local'),(req,res)=>{
+app.post('/login',passport.authenticate('local',{session:false}),(req,res)=>{
     handler.handleLoginRequest(req,res);
 });
 

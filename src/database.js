@@ -64,13 +64,11 @@ class Database{
 
     //Write database to file
     writeToFile(){
-        fs.writeFileSync(this._path,JSON.stringify(this._database,null,4),(err)=>{
-            if (err){
-                console.log('Error has occured while trying to save database.');
-            }else{
-                console.log('Successfully saved database.');
-            }
-        });
+       fs.writeFile(this._path,JSON.stringify(this._database,null,4),(err)=>{
+           if(err){
+            console.error(err);
+           }
+       });
     }
 
     //Get the database object itself

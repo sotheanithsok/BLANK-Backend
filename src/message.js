@@ -1,55 +1,57 @@
 //A generic representation of Message object
-class Message{
-    constructor(id, owner, content, key, tag){
-        this._id=id;
-        this._owner=owner;
-        this._isRead=false;
-        this._content=content;
+class Message {
+    constructor(id, sender, receiver, content, key, tag) {
+        this._id = id;
+        this._sender = sender;
+        this._receiver = receiver;
+        this._isRead = false;
+        this._content = content;
         this._key = key;
         this._tag = tag;
     }
 
-    get id(){
+    get id() {
         return this._id;
     }
-    get owner(){
-        return this._owner;
+    get sender() {
+        return this._sender;
     }
-    get isRead(){
+    get receiver() {
+        return this._receiver;
+    }
+    get isRead() {
         return this._isRead;
     }
-    get content(){
+    get content() {
         return this._content;
     }
-    get key(){
+    get key() {
         return this._key;
     }
-    get tag(){
+    get tag() {
         return this._tag;
     }
 
-    set id(val){
-        this._id =val;
+    set id(val) {
+        this._id = val;
     }
-    set owner(val){
-        this._owner =val;
+    set sender(val) {
+        this._sender = val;
     }
-    set isRead(val){
-        this._isRead =val;
+    set receiver(val) {
+        this._receiver = val;
     }
-    set content(val){
-        this._content =val;
+    set isRead(val) {
+        this._isRead = val;
     }
-    set key(val){
-        this._key =val;
+    set content(val) {
+        this._content = val;
     }
-    set tag(val){
+    set key(val) {
+        this._key = val;
+    }
+    set tag(val) {
         this._tag = val;
     }
-
-    getName(){
-        return this._id;
-    }
-
 }
-module.exports=Message;
+module.exports = Message;
