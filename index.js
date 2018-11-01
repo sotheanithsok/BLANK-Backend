@@ -36,6 +36,13 @@ app.get('/',(req,res)=>{
     res.sendFile('assets/default.html',{root: __dirname});
 });
 
+// Login
+app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
 //Redirect all unknow request to homepage.
 app.all('*',(req,res)=>{
     res.redirect('/');
