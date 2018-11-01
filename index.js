@@ -53,6 +53,7 @@ app.get('/',(req,res)=>{
 });
 
 //Redirect all unknown request to homepage.
+
 app.all('*',(req,res)=>{
     res.redirect('/');
 });
