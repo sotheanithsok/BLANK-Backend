@@ -1,20 +1,22 @@
-const Utilities = require('./utilities');
-const Message = require('./message');
-const User = require('./user');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const Utilities = require('./utilities'); //Utilities class contains useful object
+const Message = require('./message'); //use to construct message object
+const User = require('./user'); //use to construct user object.
+const jwt = require('jsonwebtoken'); //jwt object uses to generate jwt token
+const bcrypt = require('bcrypt'); //bcrypt uses to hash and validate password.
 
 //Handler that deals with request after complete the authentication.
 class Handler {
     constructor() {
-        this._messagesDatabase = Utilities.messageDB;
-        this._usersDatabase = Utilities.userDB;
+        this._messagesDatabase = Utilities.messageDB; //Get messageDatabase reference from Utilities class
+        this._usersDatabase = Utilities.userDB; //Get userDatabase reference from Utilities class
     }
 
     //Let a user post a message
     handleMessagePostRequest(req, res) {
-        let user =req.user;
-        let data = req.body;
+        let user = req.user; //User that makes a request
+        let data = req.body; //User sent information
+
+        //Check if data sent is valid.
         let isPassed = data.hasOwnProperty('receiver') &&
             data.hasOwnProperty('content') &&
             data.hasOwnProperty('key') &&
@@ -23,17 +25,20 @@ class Handler {
             data.content.trim() &&
             data.key.trim() &&
             data.tag.trim();
-        if (isPassed) {
-            this._messagesDatabase.add(new Message(-1, user.name,data.receiver.trim(), data.content.trim(), data.key.trim(), data.tag.trim()));
+
+        if (isPassed) { //Successfully add a message to database
+            this._messagesDatabase.add(new Message(-1, user.name, data.receiver.trim(), data.content.trim(), data.key.trim(), data.tag.trim()));
             res.status(201).end();
-        } else {
+        } else { //Unsucessfully add a message to database.
             res.status(400).end();
         }
     }
 
     //Get unreaded message
-    handleMessageGetRequest(req, res) {    
-        let user =req.user;    
+    handleMessageGetRequest(req, res) {
+        let user = req.user; //User that makes a request
+
+        //Search datbase for unread messages for that user.
         let temp = this._messagesDatabase.getItemsByCriteria(e => e.receiver === user.name && e.isRead === false);
 
         //If there is data to be send back.
@@ -61,9 +66,11 @@ class Handler {
 
     //Get all message including read and unreaded message
     handleMessagesGetAllRequest(req, res) {
-        let user = req.user;
+        let user = req.user; // user that makes a request
 
-        let temp = this._messagesDatabase.getItemsByCriteria(e=>e.receiver===user.name);
+        //Search database for messages
+        let temp = this._messagesDatabase.getItemsByCriteria(e => e.receiver === user.name);
+
         //If there is data to be send back.
         if (temp.length > 0) {
             let dataPack = [];
@@ -89,7 +96,11 @@ class Handler {
 
     //Handle signup request by saving user data into the database
     handleSignupRequest(req, res) {
+
+        //User sent data
         let data = req.body;
+
+        //Data validation
         let isPassed = data.hasOwnProperty('username') &&
             data.hasOwnProperty('email') &&
             data.hasOwnProperty('name') &&
@@ -99,42 +110,54 @@ class Handler {
             data.name.trim() &&
             data.password.trim();
         let temp = [];
+
+        //Check if user already existed
         if (isPassed) {
             temp = this._usersDatabase.getItemsByCriteria(e => e.email === data.email || e.username === data.username);
         }
 
         if (temp.length === 0 && isPassed) {
+            //Add a new user
             //Generate 4 digits number and attached to a username;
             while (true) {
                 let num = Math.floor(Math.random() * (9999 - 1000) + 1000);
                 let completeName = data.name + "#" + num;
-                let a = this._usersDatabase.getItemsByCriteria(e => e.name === completeName);
+                let a = this._usersDatabase.getItemsByCriteria(e => e.name === completeName); //Ensure that name is unique.
                 if (a.length === 0) {
                     data.name = completeName;
                     break;
                 }
             }
+
+            //Hash password and store it.
             bcrypt.genSalt(10, function (err, salt) {
                 bcrypt.hash(data.password, salt, function (err, hash) {
-                    Utilities.userDB.add(new User(-1, data.username.trim(), data.email.trim(), data.name.trim(), salt.trim(), hash.trim()));
+                    Utilities.userDB.add(new User(-1, data.username.trim(), data.email.trim(), data.name.trim(), hash.trim()));
                     res.status(201).end();
                 });
             });
         } else {
-            res.status(400).end();
+            res.status(400).end(); //End request and return error status.
         }
 
     }
 
     //Handle login request by return a jwt token
     handleLoginRequest(req, res) {
+        //Get user who makes a request
         let user = req.user;
-        let token = jwt.sign({}, Utilities.key, {
-            audience: Utilities.audience,
-            issuer: Utilities.issuer,
-            subject: user.name,
-            expiresIn: '7d'
-        })
+
+        //Generate jwt token
+        let token = jwt.sign({}, //Options
+            Utilities.key, //Key uses to sign the token
+            {
+                audience: Utilities.audience, //audience
+                issuer: Utilities.issuer, //issuer
+                subject: user.name, // who is this token issued to
+                expiresIn: '7d'
+            });
+
+        //Send the token
         res.send({
             token: token
         });

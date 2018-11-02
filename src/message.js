@@ -1,13 +1,13 @@
 //A generic representation of Message object
 class Message {
     constructor(id, sender, receiver, content, key, tag) {
-        this._id = id;
-        this._sender = sender;
-        this._receiver = receiver;
-        this._isRead = false;
-        this._content = content;
-        this._key = key;
-        this._tag = tag;
+        this._id = id; //Id in the database
+        this._sender = sender; //who is the sender
+        this._receiver = receiver; //who is the receiver
+        this._isRead = false; //has the message been read
+        this._content = content; //content of the message
+        this._key = key; //key uses to encrypt the message
+        this._tag = tag; // tag uses to verify the message
     }
 
     get id() {

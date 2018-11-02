@@ -1,51 +1,45 @@
 //A generic representation of User
-class User{
-    constructor(id, username, email,name , salt, verifier){
-        this._id=id;
-        this._username=username;
-        this._email=email;
-        this._name=name;
-        this._salt =salt;
-        this._verifier = verifier;
+class User {
+    constructor(id, username, email, name, verifier) {
+        this._id = id; //Id in the datbase
+        this._username = username; // username uses to login
+        this._email = email; //email associates with this user
+        this._name = name; //in-app unique name
+        this._verifier = verifier; // hashed password
     }
-    set id(val){
-        this._id=val;
+    set id(val) {
+        this._id = val;
     }
-    set username(val){
-        this._username=val;
+    set username(val) {
+        this._username = val;
     }
-    set email(val){
-        this._email=val;
+    set email(val) {
+        this._email = val;
     }
-    set name(val){
-        this._name=val;
-    }
-    set salt(val){
-        this._salt=val;
+    set name(val) {
+        this._name = val;
     }
 
-    set verifier(val){
-        this._verifier=val;
+    set verifier(val) {
+        this._verifier = val;
     }
 
-    get id(){
+    get id() {
         return this._id;
     }
-    get username(){
+    get username() {
         return this._username;
     }
-    get email(){
+    get email() {
         return this._email;
     }
-    get name(){
+    get name() {
         return this._name;
     }
-    get salt(){
-        return this._salt;
-    }
-    get verifier(){
+
+    get verifier() {
         return this._verifier;
     }
-}   
+}
 
 module.exports = User;

@@ -44,15 +44,17 @@ function jwtStrategy(passport) {
 }
 
 function localStategy(passport) {
-    passport.use(new LocalStrategy({
-            session: false
-        },
+    passport.use(new LocalStrategy({ usernameField: 'username', passwordField: 'password', session: false },
         function (username, password, done) {
-            let result = userDatabase.getItemsByCriteria(e => e.username === username);
-            if (result.length === 0) {
-                return done(null, false); //No user found
-            } else {
-                let user = result[0];
+            let user = userDatabase.database.find(function (element) {
+                if (username === element.username) {
+                    return element
+                }
+            })
+            if (user === null || typeof user === "undefined") {
+                return done(null, false)
+            }
+            else {
                 bcrypt.compare(password, user.verifier, function (err, res) {
                     if (res === true) {
                         return done(null, user);
@@ -61,7 +63,8 @@ function localStategy(passport) {
                     }
                 });
             }
-        }));
+        }))
+
 };
 
 module.exports = initialzie;
