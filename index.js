@@ -39,6 +39,10 @@ app.post('/login', passport.authenticate('local', { session: false }), (req, res
     handler.handleLoginRequest(req, res);
 });
 
+//Search for users
+app.get('/search',function(req,res){
+    handler.handleSearchRequest(req, res);
+});
 
 //Extra request handles
 
