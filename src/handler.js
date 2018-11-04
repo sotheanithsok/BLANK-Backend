@@ -176,7 +176,7 @@ class Handler {
             let dataPack = []
             for(i=0;i<result.length;i++)
               {
-                dataPack[i] = result[i].name.end()
+                dataPack[i] = result[i].name
               }
         res.dataPack.end()
 
