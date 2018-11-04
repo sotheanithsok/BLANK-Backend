@@ -167,16 +167,16 @@ class Handler {
     handleSearchRequest(req, res) {
     //Search database for all user name that match the request
         let result = [];
-        result = this._usersDatabase.getItemsByCriteria(e => e.name === req.params.name);
-        if (result.length > 0) {
-            let dataPack = [];
-            for(i=0;i<result.length;i++)
-            {
-               dataPack.push(result[i].name);
-            }
-            res.send(dataPack).end();
+        result = this._usersDatabase.getItemsByCriteria(e => e.id === parseInt(req.params.id));
+            if (result.length > 0) {
+                 let dataPack = [];
+                 for(i=0;i<result.length;i++)
+                 {
+                        dataPack.push(result[i].name);
+                 }  
+                 res.send(result).end();
 
-        } else { //If there isn't any data to send back
+           } else { //If there isn't any data to send back
             res.status(404).end();
         }
     }
