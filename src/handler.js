@@ -170,7 +170,7 @@ class Handler {
         
         //Search database for all user name that match the request
         let result = [];
-        result = this._usersDatabase.getItemsByCriteria(e => data.name);
+        result = this._usersDatabase.getItemsByCriteria(e=>e.name == data.name);
 
         if (result.length > 0) {
             let dataPack = []
@@ -178,7 +178,7 @@ class Handler {
               {
                 dataPack[i] = result[i].name
               }
-        res.dataPack.end()
+        res.send(dataPack).end()
 
         } else { //If there isn't any data to send back
             res.status(404).end();
