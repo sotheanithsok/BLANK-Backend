@@ -122,7 +122,7 @@ class Handler {
             //Generate 4 digits number and attached to a username;
             while (true) {
                 let num = Math.floor(Math.random() * (9999 - 1000) + 1000);
-                let completeName = data.name + "#" + num;
+                let completeName = data.name + "-" + num;
                 let a = this._usersDatabase.getItemsByCriteria(e => e.name === completeName); //Ensure that name is unique.
                 if (a.length === 0) {
                     data.name = completeName;
@@ -164,33 +164,19 @@ class Handler {
         });
         res.status(200).end();
     }
-    handleSearchRequestName(req, res) {
-        // //Search database for all user name that match the request
-        //     let result = [];
-        //     result = this._usersDatabase.getItemsByCriteria(e => e.name === req.params.name);
-        //         if (result.length > 0) {
-        //              let dataPack = [];
-        //              for(i=0;i<result.length;i++)
-        //              {
-        //                     dataPack.push(result[i].name);
-        //              }  
-        //              res.send(result).end();
-    
-        //        } else { //If there isn't any data to send back
-        //         res.status(404).end();
-        //     }
-    }
+
     handleSearchRequestName(req, res) {
     //Search database for all user name that match the request
         let result = [];
-        result = this._usersDatabase.getItemsByCriteria(e => e.name === req.params.name);
+        let regex=new RegExp("("+req.params.name+")");
+        result = this._usersDatabase.getItemsByCriteria(e => regex.test(e.name));
             if (result.length > 0) {
                  let dataPack = [];
-                 for(i=0;i<result.length;i++)
+                 for(let i=0;i<result.length;i++)
                  {
-                        dataPack.push(result[i].name);
+                        dataPack.push({name:result[i].name});
                  }  
-                 res.send(result).end();
+                 res.send(dataPack).end();
 
            } else { //If there isn't any data to send back
             res.status(404).end();
