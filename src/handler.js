@@ -164,10 +164,26 @@ class Handler {
         });
         res.status(200).end();
     }
-    handleSearchRequest(req, res) {
+    handleSearchRequestName(req, res) {
+        // //Search database for all user name that match the request
+        //     let result = [];
+        //     result = this._usersDatabase.getItemsByCriteria(e => e.name === req.params.name);
+        //         if (result.length > 0) {
+        //              let dataPack = [];
+        //              for(i=0;i<result.length;i++)
+        //              {
+        //                     dataPack.push(result[i].name);
+        //              }  
+        //              res.send(result).end();
+    
+        //        } else { //If there isn't any data to send back
+        //         res.status(404).end();
+        //     }
+    }
+    handleSearchRequestName(req, res) {
     //Search database for all user name that match the request
         let result = [];
-        result = this._usersDatabase.getItemsByCriteria(e => e.id === parseInt(req.params.id));
+        result = this._usersDatabase.getItemsByCriteria(e => e.name === req.params.name);
             if (result.length > 0) {
                  let dataPack = [];
                  for(i=0;i<result.length;i++)

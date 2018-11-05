@@ -40,8 +40,13 @@ app.post('/login', passport.authenticate('local', { session: false }), (req, res
 });
 
 //Search for users
-app.get('/:name',function(req,res){
+app.get('/users',function(req,res){
     handler.handleSearchRequest(req, res);
+});
+
+//Search for user by name
+app.get('/users/:name',function(req,res){
+    handler.handleSearchRequestName(req, res);
 });
 
 //Extra request handles
