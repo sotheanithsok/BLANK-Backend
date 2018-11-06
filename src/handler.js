@@ -168,7 +168,7 @@ class Handler {
     handleSearchRequestName(req, res) {
     //Search database for all user name that match the request
         let result = [];
-        let regex=new RegExp("("+req.params.name+")");
+        let regex=new RegExp("("+req.params.name+")",'i');
         result = this._usersDatabase.getItemsByCriteria(e => regex.test(e.name));
             if (result.length > 0) {
                  let dataPack = [];
