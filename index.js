@@ -1,11 +1,16 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+
 const handle = require('./src/handler');
 const passport = require('passport');
 const init = require('./src/passport');
 
 const handler = new handle();
+
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(passport.initialize());
 
 init(passport);
@@ -35,10 +40,10 @@ app.post('/signup', (req, res) => {
 });
 
 //Login
-app.post('/login', passport.authenticate('local', { session: false }), (req, res, next) => {
+app.post('/login', passport.authenticate('local', { session: false }),(req, res, next) => {
     handler.handleLoginRequest(req, res);
+    console.log(req.body);
 });
-
 
 //Search for user by name
 app.get('/names/:name',passport.authenticate('jwt', { session: false }),function(req,res){
