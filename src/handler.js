@@ -60,7 +60,7 @@ class Handler {
             res.status(200).end();
 
         } else { //If there isn't any data to send back
-            res.status(404).end();
+            res.status(204).end();
         }
     
     }
@@ -91,7 +91,7 @@ class Handler {
             res.status(200).end();
 
         } else { //If there isn't any data to send back
-            res.status(404).end();
+            res.status(204).end();
         }
     }
 
@@ -176,10 +176,10 @@ class Handler {
                  {
                         dataPack.push({name:result[i].name});
                  } 
-                 res.status(302);
+                 res.status(200);
                  res.send(dataPack).end();
            } else { //If there isn't any data to send back
-            res.status(404).end();
+            res.status(204).end();
         }
     }
 }
