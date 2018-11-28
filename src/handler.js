@@ -169,15 +169,15 @@ class Handler {
     //Search database for all user name that match the request
         let result = [];
         let regex=new RegExp("("+req.params.name+")",'i');
-        result = this._usersDatabase.getItemsByCriteria(e => regex.test(e.name));
+        result = this._usersDatabase.getItemsByCriteria(e => regex.test(e.name) &&e.name!=req.user.name);
             if (result.length > 0) {
                  let dataPack = [];
                  for(let i=0;i<result.length;i++)
                  {
                         dataPack.push({name:result[i].name});
-                 }  
+                 } 
+                 res.status(302);
                  res.send(dataPack).end();
-
            } else { //If there isn't any data to send back
             res.status(404).end();
         }
