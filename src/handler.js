@@ -62,7 +62,7 @@ class Handler {
         } else { //If there isn't any data to send back
             res.status(204).end();
         }
-    
+
     }
 
     //Get all message including read and unreaded message
@@ -109,7 +109,7 @@ class Handler {
             data.username.trim() &&
             data.email.trim() &&
             data.name.trim() &&
-            data.password.trim();
+            data.password.trim() &&this.validateEmail(data.email); 
         let temp = [];
 
         //Check if user already existed
@@ -166,24 +166,27 @@ class Handler {
     }
 
     handleSearchRequestName(req, res) {
-    //Search database for all user name that match the request
+        //Search database for all user name that match the request
         let result = [];
-        let regex=new RegExp("("+req.params.name+")",'i');
-        result = this._usersDatabase.getItemsByCriteria(e => regex.test(e.name) &&e.name!=req.user.name);
-            if (result.length > 0) {
-                 let dataPack = [];
-                 for(let i=0;i<result.length;i++)
-                 {
-                        dataPack.push({name:result[i].name});
-                 } 
-                 res.status(200);
-                 res.send(dataPack).end();
-           } else { //If there isn't any data to send back
+        let regex = new RegExp("(" + req.params.name + ")", 'i');
+        result = this._usersDatabase.getItemsByCriteria(e => regex.test(e.name) && e.name != req.user.name);
+        if (result.length > 0) {
+            let dataPack = [];
+            for (let i = 0; i < result.length; i++) {
+                dataPack.push({ name: result[i].name });
+            }
+            res.status(200);
+            res.send(dataPack).end();
+        } else { //If there isn't any data to send back
             res.status(204).end();
         }
     }
+    validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
 }
-  
+
 
 
 module.exports = Handler;
