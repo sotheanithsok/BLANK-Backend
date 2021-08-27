@@ -14,7 +14,7 @@ The backend for an encrypted chat application.
  - [passport-local](https://www.npmjs.com/package/passport-local)
  - [secure-remote-password](https://www.npmjs.com/package/secure-remote-password)
  
-## Author
+## Authors
  - [Sotheanith Sok](https://github.com/sotheanith)
  - [Hayat Ahmed](https://github.com/hayat456)
 
