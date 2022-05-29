@@ -15,7 +15,7 @@ The backend for an encrypted chat application.
  - [secure-remote-password](https://www.npmjs.com/package/secure-remote-password)
  
 ## Authors
- - [Sotheanith Sok](https://github.com/sotheanith)
+ - [Sotheanith Sok](https://github.com/sotheanith-sok)
  - [Hayat Ahmed](https://github.com/hayat456)
 
 ## Course
