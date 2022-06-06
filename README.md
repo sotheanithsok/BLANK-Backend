@@ -30,6 +30,7 @@ An implementation of a secure reverse proxy server for an encrypted chat system.
 
 
 ## Documentation
+- [Architecture]
 - [Presentation]
 <!-- Include your major tools and frameworks -->
 ## Built With
@@ -86,6 +87,6 @@ Special thank to
 [CECS 478 - Introduction to Computer Security]: http://catalog.csulb.edu/preview_course_nopop.php?catoid=5&coid=40021
 [Hayat Ahmed]: https://github.com/hayat456
 [Nginx]: https://www.nginx.com/
-
+[Architecture]: Phase%20Design/Project%20Documentation.pdf
 
 
